@@ -153,36 +153,13 @@
 
     <main>
       <h2>
-        Proposition: States where a larger share of women aged 15-44 live in counties without an abortion clinic tend to have higher percentages of residents traveling out of state for care.
+        Proposition: States where a larger share of women aged 15-44 live in counties
+        without an abortion clinic tend to have higher percentages of residents
+        traveling out of state for care.
       </h2>
 
       <section>
         <h3>FOR the Proposition</h3>
-
-        <figure>
-          <img src="figure1_for.png" alt="Scatter plot with regression line" />
-          <figcaption>
-            Scatter plot of % women 15-44 without a clinic vs. % traveling out-of-state, with a fitted regression line to highlight the positive association.
-          </figcaption>
-        </figure>
-
-        <p>Design Decisions and Rationale:</p>
-
-        <ul>
-          <li>
-            <strong>Explicit Trend Line:</strong> Added a linear regression line to make the upward relationship immediate and undeniable, nudging the reader to see a clear positive slope.
-          </li>
-          <li>
-            <strong>Size &amp; Color Encoding:</strong> Mapped the composite barrier index to both point size and color—darker, larger points cluster in the top-right, reinforcing that high-barrier states also show high travel rates.
-          </li>
-          <li>
-            <strong>Threshold Annotation:</strong> Included a horizontal reference line at 20 % out-of-state travel, framing anything above it as “notable” and drawing attention to most high-barrier points crossing this cutoff.
-          </li>
-        </ul>
-      </section>
-
-      <section>
-        <h3>AGAINST the Proposition</h3>
 
         <figure>
           <img
@@ -198,7 +175,7 @@
         <p>Design Decisions and Rationale:</p>
 
         <ul>
-          li>
+          <li>
             <strong>Bin-Means Overlay:</strong> Binned the x-axis into four equal (25 %) intervals, computed
             the mean out-of-state travel rate in each bin, and overlaid them as a dashed-red line + markers to
             make the aggregated trend explicit.
@@ -220,14 +197,55 @@
       </section>
 
       <section>
+        <h3>AGAINST the Proposition</h3>
+
+        <figure>
+          <img
+            src="figure2_against.png"
+            alt="Violin plots of out-of-state travel rates by clinic-access quartile, with y-axis truncated."
+            width="800"
+          />
+          <figcaption>
+            Violin plots of out-of-state travel rates across quartiles of clinic access, with y-axis truncated
+            to 10-60 % to minimize apparent differences.
+          </figcaption>
+        </figure>
+
+        <p>Design Decisions and Rationale:</p>
+
+        <ul>
+          <li>
+            <strong>Quartile Binning:</strong> Used <code>pd.qcut</code> to group states into four equal-sized
+            categories (≤ 25 %, 25-50 %, 50-75 %, ≥ 75 % without clinics), an advanced transform that aggregates
+            the continuous measure into interpretable bins.
+          </li>
+          <li>
+            <strong>Y-Axis Truncation:</strong> Limited the plotted range to 10-60 %, so each violin nearly fills
+            the frame and the modest median gap (e.g., 30 % vs. 32 %) appears negligible at first glance.
+          </li>
+          <li>
+            <strong>Neutral Grayscale &amp; Subtle Annotation:</strong> Employed light gray violins and white
+            jitter points to avoid drawing the eye with color, and placed a faint median note at the top—tactics
+            that mask the small actual difference.
+          </li>
+        </ul>
+      </section>
+
+      <section>
         <h2>Final Reflection</h2>
 
         <p>
-          In crafting the “for” visualization, I leaned on earnest encodings—mapping the barrier index to color and size, and fitting a regression line—to clearly reveal the positive correlation. I reinforced that message with a threshold line at 20 %, a conventional reference point that frames most high-barrier states as exceeding a “notable” travel rate. All these choices are transparent and easy to interpret, but they also steer the reader toward a single conclusion.
+          In the “for” visualization, I used overt, earnest encodings—bin-means, LOWESS, size &amp; color mapping,
+          and a clear threshold annotation to transparently reveal the positive correlation. This makes things
+          easy to interpret but also drive the reader toward the desired conclusion.
         </p>
 
         <p>
-          The “against” chart, by contrast, subverts that reader bias through subtler—and somewhat deceptive—techniques. Binning into quartiles is a valid transformation, but truncating the y-axis and using neutral grayscale disguises the small but real median difference. The median annotation is so faint and placed so high that many viewers will miss it. Ethically, these tactics sit in a gray area: they aren't outright lies, but they intentionally obscure meaningful variation. Reflecting on this, I find that even innocuous-seeming design choices (axis limits, color palettes, annotation placement) carry persuasive power. As visualization authors, we must weigh clarity against persuasion and guard against inadvertently misleading our audience.
+          The “against” chart subverts this by applying subtler, borderline-deceptive techniques. Although quartile
+          binning is a valid data transform, truncating the y-axis and using neutral grayscale hide meaningful
+          variation. The small median annotation is so faded that it's easily missed. Ethically, these
+          decisions illustrate how even minor styling or scale adjustments carry persuasive power. We should 
+          try balance clarity with persuasion and guard against inadvertently misleading our audience.
         </p>
       </section>
     </main>
