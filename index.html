@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Project 2 Report</title>
+    <style>
+      :root {
+        --color-neutral-95: hsl(220 10% 95%);
+        --color-neutral-90: hsl(220 10% 90%);
+        --color-neutral-80: hsl(220 10% 80%);
+        --color-neutral-70: hsl(220 10% 70%);
+        --color-neutral-60: hsl(220 10% 60%);
+        --color-neutral-50: hsl(220 10% 50%);
+        --color-neutral-40: hsl(220 10% 40%);
+        --color-neutral-30: hsl(220 10% 30%);
+        --color-neutral-20: hsl(220 10% 20%);
+        --color-neutral-10: hsl(220 10% 10%);
+      }
+
+      html {
+        font: 100%/1.5 system-ui;
+        counter-reset: figure;
+        background: var(--color-neutral-95);
+        max-width: min(75vw, 80em);
+        margin: 0 auto;
+      }
+
+      /* Headings */
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        line-height: 1.1;
+        font-weight: 600;
+        text-wrap: balance;
+      }
+
+      h1,
+      h2 {
+        border-bottom: 1px solid var(--color-neutral-80);
+        padding-bottom: 0.2em;
+      }
+
+      h1 {
+        margin-block: 1em 0.5rem;
+        font-size: clamp(2.5em, 150% + 2vh + 2vw, 10vmin);
+        font-weight: 800;
+
+        small {
+          display: block;
+          width: fit-content;
+          padding: 0.2em 0.5em;
+          margin-inline: auto;
+          color: white;
+          background: var(--color-neutral-40);
+          font-size: 40%;
+          text-transform: uppercase;
+          white-space: nowrap;
+        }
+      }
+
+      h2 {
+        font-size: 180%;
+        color: var(--color-neutral-30);
+      }
+
+      h3 {
+        font-size: 130%;
+      }
+
+      /* Lists */
+
+      ul,
+      ol {
+        padding-inline-start: 2em;
+      }
+
+      li {
+        &::marker {
+          color: var(--color-neutral-40);
+        }
+
+        + li {
+          margin-top: 0.2em;
+        }
+      }
+
+      /* Sectioning elements */
+
+      header {
+        padding-block: 1em;
+        text-align: center;
+      }
+
+      main {
+        background: white;
+        color: var(--color-neutral-20);
+        border-radius: 1rem;
+        padding: 0.1rem 2rem;
+      }
+
+      /* Figures */
+
+      figure {
+        margin: 1em 0;
+        padding: 0.5rem;
+        margin-inline: -0.5em;
+        border: 1px solid var(--color-neutral-80);
+        box-shadow: 0 0.1em 0.2em var(--color-neutral-95);
+        text-align: center;
+        background: white;
+
+        > figcaption {
+          font: 500 75% var(--font-sans);
+          background: var(--color-neutral-95);
+          padding: 0.5rem;
+          margin: -0.5rem;
+          margin-top: 0.5rem;
+          counter-increment: figure;
+          text-align: left;
+
+          &::before {
+            content: 'Figure ' counter(figure) ': ';
+            font-weight: bold;
+            color: var(--color-neutral-40);
+          }
+
+          a:not(:hover, :focus, :active) {
+            color: inherit;
+            text-decoration: underline;
+            text-decoration-color: color-mix(
+              in lab,
+              currentColor,
+              transparent 70%
+            );
+          }
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>
+        <small>Assignment 4</small>
+        Persuasive or Deceptive Visualization?
+      </h1>
+
+      <p><strong>Parth Shinde</strong> — <em>pshinde@ucsd.edu</em></p>
+    </header>
+
+    <main>
+      <h2>Proposition: States where a larger share of women aged 15-44 live in
+        counties without an abortion clinic tend to have higher percentages of
+        residents traveling out of state for care.</h2>
+
+      <section>
+        <h3>FOR the Proposition</h3>
+
+        <figure>
+          <img src="figure1_for.png" alt="Scatter plot with regression line" />
+          <figcaption>
+            Scatter plot of % women 15-44 without a clinic vs. % traveling out-of-state, with a fitted regression line to highlight the positive association.
+          </figcaption>
+        </figure>
+
+        <p>Design Decisions and Rationale:</p>
+
+        <ul>
+          <li>
+            <strong>Explicit Trend Line:</strong> Added a linear regression line to make the upward relationship immediate and undeniable, nudging the reader to see a clear positive slope.
+          </li>
+          <li>
+            <strong>Size &amp; Color Encoding:</strong> Mapped the composite barrier index to both point size and color—darker, larger points cluster in the top-right, reinforcing that high-barrier states also show high travel rates.
+          </li>
+          <li>
+            <strong>Threshold Annotation:</strong> Included a horizontal reference line at 20 % out-of-state travel, framing anything above it as “notable” and drawing attention to most high-barrier points crossing this cutoff.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>AGAINST the Proposition</h3>
+
+        <figure>
+          <img src="figure2_against.png" alt="Violin plot of quartile groups" />
+          <figcaption>
+            Violin plots of out-of-state travel rates across quartiles of clinic access, with y-axis truncated to 10-60 % to minimize apparent differences.
+          </figcaption>
+        </figure>
+
+        <p>Design Decisions and Rationale:</p>
+
+        <ul>
+          <li>
+            <strong>Quartile Binning:</strong> Grouped states into four bins (≤25 %, 25–50 %, 50–75 %, ≥75 % without clinics) using <code>pd.qcut</code>, an advanced transform that aggregates the continuous variable into interpretable categories.
+          </li>
+          <li>
+            <strong>Y-Axis Truncation:</strong> Limited the vertical range to 10–60 %, so each violin fills most of the chart and the small shift in medians (e.g. 30 % vs. 32 %) looks negligible at a glance.
+          </li>
+          <li>
+            <strong>Neutral Grayscale &amp; Subtle Annotation:</strong> Used light gray violins and white jitter points to avoid eye-catching colors, plus a tiny median note at the top—tactics that hide the small gap in plain sight.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Final Reflection</h2>
+
+        <p>
+          In crafting the “for” visualization, I leaned on earnest encodings—mapping the barrier index to color and size, and fitting a regression line—to clearly reveal the positive correlation. I reinforced that message with a threshold line at 20 %, a conventional reference point that frames most high-barrier states as exceeding a “notable” travel rate. All these choices are transparent and easy to interpret, but they also steer the reader toward a single conclusion.
+        </p>
+
+        <p>
+          The “against” chart, by contrast, subverts that reader bias through subtler—and somewhat deceptive—techniques. Binning into quartiles is a valid transformation, but truncating the y-axis and using neutral grayscale disguises the small but real median difference. The median annotation is so faint and placed so high that many viewers will miss it. Ethically, these tactics sit in a gray area: they aren’t outright lies, but they intentionally obscure meaningful variation. Reflecting on this, I find that even innocuous-seeming design choices (axis limits, color palettes, annotation placement) carry persuasive power. As visualization authors, we must weigh clarity against persuasion and guard against inadvertently misleading our audience.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
