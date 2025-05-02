@@ -185,23 +185,36 @@
         <h3>AGAINST the Proposition</h3>
 
         <figure>
-          <img src="figure2_against.png" alt="Violin plot of quartile groups" />
+          <img
+            src="figure1_for.png"
+            alt="Scatter plot of % women 15-44 without a clinic vs. % traveling out-of-state, with bin-mean overlay and LOWESS curve."
+            width="800"
+          />
           <figcaption>
-            Violin plots of out-of-state travel rates across quartiles of clinic access, with y-axis truncated to 10-60 % to minimize apparent differences.
+            Scatter plot of % women 15-44 without a clinic vs. % traveling out-of-state, with bin-means overlay, LOWESS trend, and threshold annotation.
           </figcaption>
         </figure>
 
         <p>Design Decisions and Rationale:</p>
 
         <ul>
-          <li>
-            <strong>Quartile Binning:</strong> Grouped states into four bins (≤25 %, 25–50 %, 50–75 %, ≥75 % without clinics) using <code>pd.qcut</code>, an advanced transform that aggregates the continuous variable into interpretable categories.
+          li>
+            <strong>Bin-Means Overlay:</strong> Binned the x-axis into four equal (25 %) intervals, computed
+            the mean out-of-state travel rate in each bin, and overlaid them as a dashed-red line + markers to
+            make the aggregated trend explicit.
           </li>
           <li>
-            <strong>Y-Axis Truncation:</strong> Limited the vertical range to 10–60 %, so each violin fills most of the chart and the small shift in medians (e.g. 30 % vs. 32 %) looks negligible at a glance.
+            <strong>LOWESS Trend Line:</strong> Kept the smooth LOWESS curve underneath the bin means to reveal
+            the continuous, non-linear rise in travel as clinic access falls.
           </li>
           <li>
-            <strong>Neutral Grayscale &amp; Subtle Annotation:</strong> Used light gray violins and white jitter points to avoid eye-catching colors, plus a tiny median note at the top—tactics that hide the small gap in plain sight.
+            <strong>Size &amp; Color Encoding:</strong> Mapped the Composite Barrier Index to both point size and
+            hue, so darker, larger points cluster in the top-right, reinforcing that high-barrier states tend to
+            have higher travel rates.
+          </li>
+          <li>
+            <strong>Threshold Annotation:</strong> Drew a dotted horizontal line at 20 % travel, labeled directly
+            on-chart as “20 % travel threshold,” to frame anything above as noteworthy.
           </li>
         </ul>
       </section>
@@ -214,7 +227,7 @@
         </p>
 
         <p>
-          The “against” chart, by contrast, subverts that reader bias through subtler—and somewhat deceptive—techniques. Binning into quartiles is a valid transformation, but truncating the y-axis and using neutral grayscale disguises the small but real median difference. The median annotation is so faint and placed so high that many viewers will miss it. Ethically, these tactics sit in a gray area: they aren’t outright lies, but they intentionally obscure meaningful variation. Reflecting on this, I find that even innocuous-seeming design choices (axis limits, color palettes, annotation placement) carry persuasive power. As visualization authors, we must weigh clarity against persuasion and guard against inadvertently misleading our audience.
+          The “against” chart, by contrast, subverts that reader bias through subtler—and somewhat deceptive—techniques. Binning into quartiles is a valid transformation, but truncating the y-axis and using neutral grayscale disguises the small but real median difference. The median annotation is so faint and placed so high that many viewers will miss it. Ethically, these tactics sit in a gray area: they aren't outright lies, but they intentionally obscure meaningful variation. Reflecting on this, I find that even innocuous-seeming design choices (axis limits, color palettes, annotation placement) carry persuasive power. As visualization authors, we must weigh clarity against persuasion and guard against inadvertently misleading our audience.
         </p>
       </section>
     </main>
